@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <meta name="color-scheme" content="light dark">
+        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="lib/jquery.mobile-1.4.5.min.css">
+        <script src="lib/jquery.min.js"></script>
+        <script src="lib/jquery.mobile-1.4.5.min.js"></script>
+        <script src="js/index.js"></script>
+        <script src="cordova.js"></script>
+        <title>Carnet de Contacts</title>
+    </head>
+    <body>
+        <!-- Page d'accueil avec la liste des contacts -->
+        <div data-role="page" id="homePage">
+            <div data-role="header" data-position="fixed">
+                <h1>Contacts</h1>
+                <a href="#contactAdd" data-icon="plus" data-iconpos="notext" class="ui-btn-right">Ajouter</a>
+            </div>
+            
+            <div role="main" class="ui-content">
+                <ul data-role="listview" id="contactList" data-filter="true" 
+                    data-filter-placeholder="Rechercher un contact..." data-inset="true">
+                </ul>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <h2>mcarred &copy; 2025</h2>
+            </div>
+        </div>
+    
+
+        <!-- page pour les détails d'un contact -->
+        <div id="contactDetails" data-role="page">
+            <div data-role="header">
+                <h1>Contact Details</h1>
+            </div>
+
+            <div role="main" class="ui-content">
+                <div class="contact-card" style="text-align: center; padding: 20px;">
+                    <img src="/www/img/av.png" alt="Contact Photo" style="width:150px; height:150px; border-radius:50%; margin-bottom:20px;">
+                    
+                    <form>
+                        <div class="ui-field-contain">
+                            <label for="name">Nom:</label>
+                            <input type="text" name="name" id="name" value="" data-clear-btn="true">
+                        </div>
+                        
+                        <div class="ui-field-contain">
+                            <label for="phone">Téléphone:</label>
+                            <input type="tel" name="phone" id="phone" value="" data-clear-btn="true">
+                        </div>
+                        
+                        <div class="ui-field-contain">
+                            <label for="email">Email:</label>
+                            <input type="email" name="email" id="email" value="" data-clear-btn="true">
+                        </div>
+                        
+                        <div class="ui-field-contain">
+                            <label for="address">Adresse:</label>
+                            <textarea name="address" id="address"></textarea>
+                        </div>
+                        
+                        <div class="button-group" style="margin-top: 20px;">
+                            <a href="#homePage" class="ui-btn ui-corner-all ui-btn-inline ui-btn-b" data-rel="back">Retour</a>
+                            <button class="ui-btn ui-corner-all ui-btn-inline ui-btn-a">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <h4>&copy; 2025 Carnet de Contacts</h4>
+            </div>
+        </div>
+
+        <!-- Page de visualisation d'un contact -->
+        <div id="contactView" data-role="page">
+            <div data-role="header" data-position="fixed">
+                <a href="#homePage" data-icon="back" data-rel="back">Retour</a>
+                <h1>Détails du Contact</h1>
+                <a href="#contactEdit" data-icon="edit" class="ui-btn-right">Modifier</a>
+            </div>
+
+            <div role="main" class="ui-content">
+                <div class="contact-card">
+                    <img src="img/av.png" alt="Photo du contact" style="width:150px; height:150px; border-radius:50%; margin:20px auto; display:block;">
+                    <h2 style="text-align:center"></h2>
+                    
+                    <ul data-role="listview" data-inset="true">
+                        <li>
+                            <h3>Téléphone</h3>
+                            <p><a href=""></a></p>
+                        </li>
+                        <li>
+                            <h3>Email</h3>
+                            <p><a href=""></a></p>
+                        </li>
+                        <li>
+                            <h3>Adresse</h3>
+                            <p></p>
+                        </li>
+                        <li>
+                            <h3>Groupe</h3>
+                            <p></p>
+                        </li>
+                    </ul>
+
+                    <div class="action-buttons">
+                        <a href="#" class="ui-btn ui-btn-inline ui-icon-phone ui-btn-icon-left">Appeler</a>
+                        <a href="#" class="ui-btn ui-btn-inline ui-icon-mail ui-btn-icon-left">Email</a>
+                        <a href="#deleteConfirm" data-rel="popup" data-position-to="window" 
+                           class="ui-btn ui-btn-inline ui-icon-delete ui-btn-icon-left ui-btn-b">Supprimer</a>
+                    </div>
+                </div>
+            </div>
+
+            <div data-role="popup" id="deleteConfirm" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+                <div data-role="header" data-theme="a">
+                    <h1>Supprimer le contact ?</h1>
+                </div>
+                <div class="ui-content">
+                    <h3 class="ui-title">Êtes-vous sûr de vouloir supprimer ce contact ?</h3>
+                    <p>Cette action est irréversible.</p>
+                    <div class="action-buttons">
+                        <a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-btn-b" data-rel="back">Annuler</a>
+                        <a href="#homePage" class="ui-btn ui-corner-all ui-btn-inline ui-btn-b">Supprimer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page d'ajout d'un contact -->
+        <div id="contactAdd" data-role="page">
+            <div data-role="header" data-position="fixed">
+                <a href="#homePage" data-icon="back" data-rel="back">Annuler</a>
+                <h1>Nouveau Contact</h1>
+            </div>
+
+            <div role="main" class="ui-content">
+                <form>
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <img src="img/av.png" alt="Photo" style="width:100px; height:100px; border-radius:50%;">
+                        <br>
+                        <a href="#" class="ui-btn ui-btn-inline ui-icon-camera ui-btn-icon-left">Changer la photo</a>
+                    </div>
+
+                    <div class="ui-field-contain">
+                        <label for="addName">Nom complet:</label>
+                        <input type="text" name="name" id="addName" value="">
+                    </div>
+                    
+                    <div class="ui-field-contain">
+                        <label for="addPhone">Téléphone:</label>
+                        <input type="tel" name="phone" id="addPhone" value="">
+                    </div>
+                    
+                    <div class="ui-field-contain">
+                        <label for="addEmail">Email:</label>
+                        <input type="email" name="email" id="addEmail" value="">
+                    </div>
+                    
+                    <div class="ui-field-contain">
+                        <label for="addAddress">Adresse:</label>
+                        <textarea name="address" id="addAddress"></textarea>
+                    </div>
+
+                    <div class="ui-field-contain">
+                        <label for="addGroup">Groupe:</label>
+                        <select name="group" id="addGroup">
+                            <option value="personnel">Personnel</option>
+                            <option value="professionnel">Professionnel</option>
+                            <option value="famille">Famille</option>
+                            <option value="amis">Amis</option>
+                        </select>
+                    </div>
+
+                    <button class="ui-btn ui-btn-b ui-corner-all">Enregistrer</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Page de modification d'un contact -->
+        <div id="contactEdit" data-role="page">
+            <div data-role="header" data-position="fixed">
+                <a href="#contactView" data-icon="back" data-rel="back">Annuler</a>
+                <h1>Modifier le Contact</h1>
+            </div>
+
+            <div role="main" class="ui-content">
+                <form>
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <img src="img/av.png" alt="Photo" style="width:100px; height:100px; border-radius:50%;">
+                        <br>
+                        <a href="#" class="ui-btn ui-btn-inline ui-icon-camera ui-btn-icon-left">Changer la photo</a>
+                    </div>
+
+                    <div class="ui-field-contain">
+                        <label for="editName">Nom complet:</label>
+                        <input type="text" name="name" id="editName" value="Mouhamad Mourtada DIOP">
+                    </div>
+                    
+                    <div class="ui-field-contain">
+                        <label for="editPhone">Téléphone:</label>
+                        <input type="tel" name="phone" id="editPhone" value="78 104 50 43">
+                    </div>
+                    
+                    <div class="ui-field-contain">
+                        <label for="editEmail">Email:</label>
+                        <input type="email" name="email" id="editEmail" value="mourtada.diop@example.com">
+                    </div>
+                    
+                    <div class="ui-field-contain">
+                        <label for="editAddress">Adresse:</label>
+                        <textarea name="address" id="editAddress">123 Rue Principal, Dakar, Sénégal</textarea>
+                    </div>
+
+                    <div class="ui-field-contain">
+                        <label for="editGroup">Groupe:</label>
+                        <select name="group" id="editGroup">
+                            <option value="personnel" selected>Personnel</option>
+                            <option value="professionnel">Professionnel</option>
+                            <option value="famille">Famille</option>
+                            <option value="amis">Amis</option>
+                        </select>
+                    </div>
+
+                    <button class="ui-btn ui-btn-b ui-corner-all">Enregistrer les modifications</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

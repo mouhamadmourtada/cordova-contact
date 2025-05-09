@@ -1,0 +1,325 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+:root {
+    --primary-color: #1976D2;
+    --primary-light: #42A5F5;
+    --primary-dark: #0D47A1;
+    --accent-color: #FF4081;
+    --text-color: #2C3E50;
+    --text-light: #78909C;
+    --background: #F5F7FA;
+    --card-bg: #FFFFFF;
+    --success: #4CAF50;
+    --error: #F44336;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+    font-size: 13px;
+    color: var(--text-color);
+    background-color: var(--background);
+    line-height: 1.4;
+}
+
+/* Header Styles */
+.ui-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)) !important;
+    border: none !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+.ui-header h1 {
+    font-size: 1.1em !important;
+    font-weight: 500 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Liste des conts */
+.ui-page-theme-a .ui-listview > li.contact-list-item,
+.ui-page-theme-a .ui-listview > li.contact-list-item > a {
+    border: none !important;    
+    margin-bottom: 4px !important;
+    background-color: transparent !important;
+    border-radius: 8px !important;
+    transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+.ui-page-theme-a .ui-listview > li.contact-list-item:hover {
+    transform: translateY(-2px) !important;
+    background-color: rgba(25, 118, 210, 0.05) !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+}
+
+.ui-page-theme-a .ui-listview > li.contact-list-item > a:hover {
+    background-color: transparent !important;
+}
+
+.contact-list-item img {
+    width: 45px !important;
+    height: 45px !important;
+    border-radius: 50% !important;
+    border: 2px solid var(--primary-light) !important;
+    padding: 2px !important;
+}
+
+.contact-list-item h2 {
+    font-size: 0.95em !important;
+    color: var(--text-color) !important;
+    font-weight: 500 !important;
+    margin: 0px 2px 0px 30px !important;
+}
+
+.contact-list-item p {
+    font-size: 0.85em !important;
+    color: var(--text-light) !important;
+    margin: 0px 2px 0px 30px !important;
+
+}
+
+
+
+/* Contact Card */
+.contact-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    padding: 20px;
+    margin: 15px 0;
+}
+
+.contact-card img {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border: 3px solid var(--primary-light);
+    padding: 3px;
+    transition: transform 0.3s;
+}
+
+.contact-card img:hover {
+    transform: scale(1.05);
+}
+
+/* Buttons */
+.ui-btn {
+    background: var(--primary-color) !important;
+    color: white !important;
+    text-shadow: none !important;
+    font-size: 0.9em !important;
+    font-weight: 500 !important;
+    border: none !important;
+    border-radius: 6px !important;
+    padding: 0.8em 1.4em !important;
+    transition: all 0.2s !important;
+    min-width: 120px !important;
+}
+
+.ui-btn:hover {
+    background: var(--primary-dark) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+
+/* Boutons avec icônes */
+.ui-btn-icon-left {
+    padding-left: 2.5em !important;
+}
+
+.ui-btn-icon-left:after {
+    background-color: rgba(255,255,255,0.2) !important;
+    border-radius: 4px !important;
+    width: 20px !important;
+    height: 20px !important;
+    margin-top: -10px !important;
+    left: 0.8em !important;
+}
+
+.ui-btn-inline.ui-icon-delete {
+    background: var(--error) !important;
+}
+
+.ui-btn-inline.ui-icon-phone {
+    background: var(--success) !important;
+}
+
+.ui-btn-inline.ui-icon-mail {
+    background: var(--primary-light) !important;
+}
+
+/* Espacement des boutons dans les groupes */
+.action-buttons .ui-btn {
+    margin: 0.3em !important;
+}
+
+/* Forms */
+.ui-input-text, 
+.ui-input-search {
+    border-radius: 6px !important;
+    border-color: #E0E0E0 !important;
+    box-shadow: none !important;
+}
+
+.ui-input-text input,
+.ui-input-search input,
+textarea.ui-input-text {
+    font-size: 0.9em !important;
+    color: var(--text-color) !important;
+}
+
+.ui-field-contain label {
+    font-size: 0.85em !important;
+    color: var(--text-light) !important;
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+/* Search bar */
+.ui-listview-filter {
+    background: var(--card-bg) !important;
+    padding: 8px !important;
+    border-radius: 8px !important;
+    margin-bottom: 15px !important;
+}
+
+.ui-listview-filter input {
+    box-shadow: none !important;
+    border-color: #E0E0E0 !important;
+}
+
+.ui-li-aside {
+    font-size: 0.8em !important;
+    background: var(--primary-color) !important;
+    color: white !important;
+    padding: 4px 10px !important;
+    border-radius: 12px !important;
+    font-weight: 500 !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    opacity: 1 !important;
+    margin-top: 5px !important;
+}
+
+/* Footer */
+.ui-footer {
+    background: var(--primary-dark) !important;
+    color: rgba(255,255,255,0.9) !important;
+    font-size: 0.8em !important;
+    text-transform: none !important;
+}
+
+/* Popup */
+.ui-popup {
+    border-radius: 12px !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15) !important;
+}
+
+.ui-popup .ui-title {
+    font-size: 1em !important;
+    font-weight: 500 !important;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.ui-page {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Portrait layout (default) */
+.app {
+    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
+    position:absolute;             /* position in the center of the screen */
+    left:50%;
+    top:50%;
+    height:50px;                   /* text area height */
+    width:225px;                   /* text area width */
+    text-align:center;
+    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .app {
+        background-position:left center;
+        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
+        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
+                                      /* offset horizontal: half of image width and text area width */
+    }
+}
+
+h1 {
+    font-size:24px;
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}
+
+.event {
+    border-radius:4px;
+    color:#FFFFFF;
+    font-size:12px;
+    margin:0px 30px;
+    padding:2px 0px;
+}
+
+.event.listening {
+    background-color:#333333;
+    display:block;
+}
+
+.event.received {
+    background-color:#4B946A;
+    display:none;
+}
+
+#deviceready.ready .event.listening { display: none; }
+#deviceready.ready .event.received { display: block; }
+
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+
+.blink {
+    animation:fade 3000ms infinite;
+    -webkit-animation:fade 3000ms infinite;
+}
+
+
+@media screen and (prefers-color-scheme: dark) {
+    body {
+        background-image:linear-gradient(to bottom, #585858 0%, #1B1B1B 51%);
+    }
+}
