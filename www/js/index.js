@@ -1,24 +1,4 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
 
-// Wait for the deviceready event before using any of Cordova's device APIs.
-// See https://cordova.apache.org/docs/en/latest/cordova/events/events.html#deviceready
 document.addEventListener('deviceready', onDeviceReady, false);
 
 let currentContact = null;
@@ -185,33 +165,79 @@ function handleEditContact(event) {
         return;
     }
 
+    // Sauvegarder les nouvelles valeurs
     const fullName = $('#editName').val();
     const phone = $('#editPhone').val();
     const email = $('#editEmail').val();
     const address = $('#editAddress').val();
     const group = $('#editGroup').val();
+    const photoData = currentContact.photos && currentContact.photos.length > 0 
+        ? currentContact.photos[0] : null;
 
-    // Mise à jour du nom
-    const name = new ContactName();
-    const nameParts = fullName.split(' ');
-    name.givenName = nameParts[0] || '';
-    name.familyName = nameParts.slice(1).join(' ') || '';
-    name.formatted = fullName;
-    
-    // Mettre à jour le contact
-    currentContact.name = name;
-    currentContact.displayName = fullName;
-    currentContact.phoneNumbers = phone ? [{type: 'mobile', value: phone, pref: true}] : [];
-    currentContact.emails = email ? [{type: 'home', value: email, pref: true}] : [];
-    currentContact.addresses = address ? [{type: 'home', formatted: address, pref: true}] : [];
-    currentContact.categories = [group];
-
-    currentContact.save(
+    // Supprimer l'ancien contact
+    currentContact.remove(
         function() {
-            onSaveSuccess();
-            loadContacts(); // Recharger la liste après modification
-        }, 
-        onSaveError
+            // Créer un nouveau contact avec les données modifiées
+            const newContact = navigator.contacts.create();
+            
+            // Configuration du nom
+            const name = new ContactName();
+            const nameParts = fullName.split(' ');
+            name.givenName = nameParts[0] || '';
+            name.familyName = nameParts.slice(1).join(' ') || '';
+            name.formatted = fullName;
+            
+            newContact.name = name;
+            newContact.displayName = fullName;
+
+            // Configuration des champs
+            if (phone) {
+                newContact.phoneNumbers = [{
+                    type: 'mobile',
+                    value: phone,
+                    pref: true
+                }];
+            }
+
+            if (email) {
+                newContact.emails = [{
+                    type: 'home',
+                    value: email,
+                    pref: true
+                }];
+            }
+
+            if (address) {
+                newContact.addresses = [{
+                    type: 'home',
+                    formatted: address,
+                    pref: true
+                }];
+            }
+
+            if (group) {
+                newContact.categories = [group];
+            }
+
+            // Restaurer la photo si elle existait
+            if (photoData) {
+                newContact.photos = [photoData];
+            }
+
+            // Sauvegarder le nouveau contact
+            newContact.save(
+                function() {
+                    currentContact = newContact; // Mettre à jour la référence
+                    onSaveSuccess();
+                    loadContacts();
+                },
+                onSaveError
+            );
+        },
+        function(error) {
+            console.error('Erreur lors de la suppression:', error);
+            alert('Impossible de modifier le contact: ' + error);
+        }
     );
 }
 
